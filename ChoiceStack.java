@@ -1,19 +1,26 @@
 /**
+ * ChoiceStack is our data structure containing our choices.
+ * It is an array based stack of Choices with a method for
+ * getting an index of the stack (in order to walk the stack)
  * 
- * @author Steaz
- *
+ * @author Chris Stiteler
+ * 
  */
 public class ChoiceStack {
 	private int count;
+	// array backend
 	private Choice[] stack;
+	// stack size constant
 	private static final int ARRAY_SIZE = 8;
 	
+	// constructor
 	public ChoiceStack() {
 		count = 0;
 		stack = new Choice[ARRAY_SIZE];
 	}
 	
-	// stack top function
+	// stackTop() returns the choice at the top of the stack
+	// WITHOUT removing said item (not a pop).
 	public Choice stackTop() {
 		if(isEmpty()) {
 			return null;
@@ -22,6 +29,7 @@ public class ChoiceStack {
 		}
 	}
 	
+	// push() adds a choice to the top of the stack
 	public void push(Choice c) {
 		if(isFull()) {
 			return;
@@ -29,6 +37,7 @@ public class ChoiceStack {
 		stack[count++] = c;
 	}
 	
+	// pop() removes a choice from the top of the stack
 	public Choice pop() {
 		Choice rtn = stack[count - 1];
 		stack[count - 1] = null;
@@ -36,23 +45,29 @@ public class ChoiceStack {
 		return rtn;
 	}
 	
+	// isFull returns true if stack is full.
 	public boolean isFull() {
 		return count == stack.length;
 	}
 	
+	// capacity returns the total capacity of the stack
 	public int capacity() {
 		return stack.length;
 	}
 	
+	// depth returns the current count of the stack
 	public int depth() {
 		return count;
 	}
 	
+	// isEmpty() returns true if stack is empty, false otherwise
 	public boolean isEmpty() {
 		return count == 0;
 	}
 	
-	//TODO REMOVE AFTER DEBUG
+	//toString() allows for a stack to be printed out.
+	// I wrote this method solely to help visualize the stack while
+	// using the debugger
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		int[][] view = new int[8][8];
@@ -74,7 +89,8 @@ public class ChoiceStack {
 	}
 
 	
-	// in order to walk the stack, an indexed get
+	// get() returns the Choice at a given index of the stack
+	// this can be used to walk the stack.
 	public Choice get(int index) {
 		if(index > stack.length - 1 || index < 0) {
 			return null;
